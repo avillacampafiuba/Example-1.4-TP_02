@@ -1,8 +1,13 @@
 #include "mbed.h"
 #include "arm_book_lib.h"
 
+#define TEST_DIG 0 
+#define TEST_BUS 1 
+#define TEST_X (TEST_BUS) 
+
 int main()
 {
+    #if (TEST_X == TEST_DIG)
     DigitalIn gasDetector(D2);
     DigitalIn overTempDetector(D3);
     DigitalIn aButton(D4);
@@ -35,4 +40,10 @@ int main()
             alarmState = OFF;
         }
     }
+
+    #endif
+
+    #if (TEST_X == TEST_BUS)
+
+    #endif
 }
