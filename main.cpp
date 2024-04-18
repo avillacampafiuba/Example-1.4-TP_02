@@ -84,5 +84,10 @@ int main()
             printf("overTempDetector: %d\n", overTempDetector);
             printf("alarmLED: %d\n\n", alarmLed.read());
         }
+
+        // Usando BusIn se pueden configurar todas las entradas al mismo tiempo (las del mismo bus),
+        // por ejemplo poniendo todas en PullDown. También se pueden leer todas las entradas al mismo tiempo.
+        // Esto también puede ser desventaja: se podría querer configurar alguna entrada como PullUp o leer una entrada por separado,
+        // y con este método no es posible.
     #endif
 }
