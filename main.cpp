@@ -2,13 +2,16 @@
 #include "arm_book_lib.h"
 
 
+// Configuro compilación condicional:
 #define TEST_DIG 0 
 #define TEST_BUS 1 
-#define TEST_X (TEST_BUS) 
+#define TEST_X (TEST_DIG) 
 
 int main()
 {
     #if (TEST_X == TEST_DIG)
+
+    // CÓDIGO ORIGINAL
     DigitalIn gasDetector(D2);
     DigitalIn overTempDetector(D3);
     DigitalIn aButton(D4);
@@ -37,7 +40,7 @@ int main()
 
         alarmLed = alarmState;
 
-        if ( aButton && bButton && !cButton && !dButton) { //1100 -> 12 -> 0xC
+        if ( aButton && bButton && !cButton && !dButton) { //0011 -> 0x3
             alarmState = OFF;
         }
     }
@@ -76,7 +79,7 @@ int main()
 
             alarmLed = alarmState;
 
-            if (buttonBus == 0xC) { // Si los botones son 1100  (0xC en hexa)
+            if (buttonBus == 0x3) { // Si los botones son 1100  (0x3 en hexa)
                 alarmState = OFF;
             }
 
