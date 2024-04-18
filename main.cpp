@@ -45,7 +45,7 @@ int main()
     #endif
 
     #if (TEST_X == TEST_BUS)
-        //En este caso, podria ser conveniente usar PortIn para fasDetector y overTempDetector, pero dado que D2 y D3 no pertenecen al mismo puerto
+        //En este caso, podria ser conveniente usar PortIn para gasDetector y overTempDetector, pero dado que D2 y D3 no pertenecen al mismo puerto
         //no es posible, una opcion seria cambiar los pines para que esten en ese puerto y simplificar la condicion de estas entradas.
 
         BusIn buttonBus(D4, D5, D6, D7); // Pines de los botones en un BusIn
