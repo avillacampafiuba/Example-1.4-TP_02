@@ -48,20 +48,28 @@ int main()
         //En este caso, podria ser conveniente usar PortIn para gasDetector y overTempDetector, pero dado que D2 y D3 no pertenecen al mismo puerto
         //no es posible, una opcion seria cambiar los pines para que esten en ese puerto y simplificar la condicion de estas entradas.
 
+        // Usamos BusIn tanto para las alarmas como para la desactivación.
+
         BusIn buttonBus(D4, D5, D6, D7); // Pines de los botones en un BusIn
-        DigitalIn gasDetector(D2);
-        DigitalIn overTempDetector(D3);
+        BusIn Alarmas(D2, D3);
 
         DigitalOut alarmLed(LED1);
 
-        gasDetector.mode(PullDown);
-        overTempDetector.mode(PullDown);
+        buttonBus.mode(PullDown);
+        Alarmas.mode(PullDown);
 
         alarmLed = OFF;
 
         bool alarmState = OFF;
 
+        int gasDetector, overTempDetector, medicion_alarmas;
+
         while (true) {
+
+            medicion_alarmas = Alarmas.read();
+            gasDetector = medicion_alarmas & 0b00000001;
+            overTempDetector = (medicion_alarmas & 0b00000010) >> 1;
+            
             if (gasDetector || overTempDetector) {
                 alarmState = ON;
             }
@@ -71,6 +79,10 @@ int main()
             if (buttonBus == 0xC) { // Si los botones son 1100  (0xC en hexa)
                 alarmState = OFF;
             }
+
+            printf("gasDetector: %d\n", gasDetector);
+            printf("overTempDetector: %d\n", overTempDetector);
+            printf("alarmLED: %d\n\n", alarmLed.read());
         }
     #endif
 }
